@@ -1,18 +1,15 @@
 package com.net.netty.http;
 
-import com.net.netty.simple.ServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.timeout.IdleStateHandler;
-import io.netty.util.concurrent.Future;
-import io.netty.util.concurrent.GenericFutureListener;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * netty 实现http服务
+ *
  * @author lxq
  * @date 2021年04月26日 11:26
  */
@@ -31,7 +28,7 @@ public class HttpServer {
             // 创建服务器启动对象，可以设置并配置参数
             ServerBootstrap bootstrap = new ServerBootstrap()
                     // 设置两个线程组
-                    .group(bossGroup,workerGroup)
+                    .group(bossGroup, workerGroup)
                     // 指定使用一个NIO传输Channel类型
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new HttpInit());
@@ -47,7 +44,6 @@ public class HttpServer {
             workerGroup.shutdownGracefully();
         }
     }
-
 
 
 }
