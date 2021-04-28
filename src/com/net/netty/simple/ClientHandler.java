@@ -36,8 +36,8 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         // 这个和NIO提供的ByteBuffer不同，但是性质类似，不过这个ByteBuf性能更好
-            ByteBuf data = (ByteBuf) msg;
-            System.out.println("接收到服务端信息：" + data.toString(CharsetUtil.UTF_8));
+        ByteBuf data = (ByteBuf) msg;
+        System.out.println("接收到服务端信息：" + data.toString(CharsetUtil.UTF_8));
     }
 
     /**
