@@ -80,12 +80,11 @@ public class GroupClient {
                         ByteBuffer data = ByteBuffer.allocate(1024);
                         int read = channel.read(data);
                         StringBuffer msg = new StringBuffer();
-                        msg.append(new String(data.array()));
-                        while (read != -1 && read !=0){
+                        while (read > 0){
+                            msg.append(new String(data.array()));
                             // 这里要重置一下标记位，因为下面读完后，position到达了5,而limit也是5 如果不重置一下position 那么下次读的就是0
                             data.clear();
                             read = channel.read(data);
-                            msg.append(new String(data.array()));
                         }
 
                         if(Utils.notEmpty(msg.toString())){
