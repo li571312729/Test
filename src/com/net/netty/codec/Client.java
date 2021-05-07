@@ -1,4 +1,4 @@
-package com.net.netty.simple;
+package com.net.netty.codec;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -31,7 +31,7 @@ public class Client {
                             p.addLast(new ClientHandler());
                         }
                     });
-            ChannelFuture future = bootstrap.connect(new InetSocketAddress("127.0.0.1", 8888)).sync();
+            ChannelFuture future = bootstrap.connect(new InetSocketAddress("127.0.0.1", 6668)).sync();
             future.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             e.printStackTrace();

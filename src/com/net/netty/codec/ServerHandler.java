@@ -1,4 +1,4 @@
-package com.net.netty.simple;
+package com.net.netty.codec;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -48,26 +48,6 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
         System.out.println("接收到客户端信息：" + new String(a, CharsetUtil.UTF_8));
         System.out.println("客户端地址：" + ctx.channel().remoteAddress().toString());
-
-        int rand = new Random().nextInt(10);
-        log.info("随机值：{}", rand);
-
-        // 1. 将耗时部分放入workGroup下的taskQueue队列中异步执行,可以放入多个任务
-        // taskQueue中只有一个线程，多任务会阻塞执行
-        ctx.channel().eventLoop().execute(() -> {
-            try {
-                TimeUnit.SECONDS.sleep(5);
-                log.info("taskQueue完成, {}", LocalDateTime.now());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-
-        // 2. 用户自定义定时任务,该任务不是提交到taskQueue而是 ScheduleTaskQueue中
-        // ScheduleTaskQueue和taskQueue 不会阻塞执行，各自有一个线程
-        ctx.channel().eventLoop().schedule(() -> {
-            log.info("scheduleQueue完成, {}", LocalDateTime.now());
-        }, 5, TimeUnit.SECONDS);
 
     }
 

@@ -113,12 +113,13 @@ public class GroupServer {
             // 一次读完后将buffer倒带，下次可以继续读，相当于每次读都是新的buffer,也可以每次创建一个
             buffer.rewind();
             StringBuffer msg = new StringBuffer();
-            msg.append(new String(buffer.array()));
             while (read > 0){
-                read = channel.read(buffer);
                 msg.append(new String(buffer.array()));
+                // 这里要重置一下标记位，因为下面读完后，position到达了5,而limit也是5 如果不重置一下position 那么下次读的就是0
                 buffer.rewind();
+                read = channel.read(buffer);
             }
+
             if(Utils.notEmpty(msg.toString())){
                 System.out.println(channel.getRemoteAddress().toString().substring(1) + "->客户端说：" + msg);
                 return msg.toString();

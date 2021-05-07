@@ -1,11 +1,14 @@
-package com.net.netty.simple;
+package com.net.netty.websocket;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.CharsetUtil;
@@ -14,17 +17,14 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 /**
- * 我们自定义一个handler需要去继承netty规定好的某个HandlerAdapter
- *
  * @author lxq
- * @date 2021年04月25日 14:54
+ * @date 2021年04月28日 17:29
  */
 @Slf4j
-public class ServerHandler extends ChannelInboundHandlerAdapter {
+public class WebsocketServerHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
+
     // 用来保存所有的客户端连接
     public static ChannelGroup clients = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
@@ -32,43 +32,14 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
     /**
      * 当Channel中有新的事件消息会自动调用
-     *
-     * @param ctx 上下文对象，包含pipline，socketChannel
-     * @param msg 客户端发送的数据
-     * @author lxq
-     * @date 2021/4/25 15:02
-     */
+      * @author lxq
+      * @date 2021/4/29 13:59
+      * @return null
+      */
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        // 这个和NIO提供的ByteBuffer不同，但是性质类似，不过这个ByteBuf性能更好
-        ByteBuf data = (ByteBuf) msg;
-        int i = data.readableBytes();
-        byte[] a = new byte[i];
-        data.readBytes(a);
-
-        System.out.println("接收到客户端信息：" + new String(a, CharsetUtil.UTF_8));
-        System.out.println("客户端地址：" + ctx.channel().remoteAddress().toString());
-
-        int rand = new Random().nextInt(10);
-        log.info("随机值：{}", rand);
-
-        // 1. 将耗时部分放入workGroup下的taskQueue队列中异步执行,可以放入多个任务
-        // taskQueue中只有一个线程，多任务会阻塞执行
-        ctx.channel().eventLoop().execute(() -> {
-            try {
-                TimeUnit.SECONDS.sleep(5);
-                log.info("taskQueue完成, {}", LocalDateTime.now());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-
-        // 2. 用户自定义定时任务,该任务不是提交到taskQueue而是 ScheduleTaskQueue中
-        // ScheduleTaskQueue和taskQueue 不会阻塞执行，各自有一个线程
-        ctx.channel().eventLoop().schedule(() -> {
-            log.info("scheduleQueue完成, {}", LocalDateTime.now());
-        }, 5, TimeUnit.SECONDS);
-
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, TextWebSocketFrame textWebSocketFrame) throws Exception {
+        log.info("服务器收到消息:{}", textWebSocketFrame.text());
+        channelHandlerContext.writeAndFlush(new TextWebSocketFrame("服务器时间" + LocalDateTime.now() + "," + textWebSocketFrame.text()));
     }
 
     /**
@@ -80,15 +51,33 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
      */
     @Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(Unpooled.copiedBuffer("服务端收到", CharsetUtil.UTF_8));
+
     }
 
-    // 当有新的客户端连接服务器之后，会自动调用这个方法
-    // 这里不是连接事件，连接事件是在BossGroup中进行的，这里是连接之后
+    // 表示channel 客户端活动
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        // 推送新用户上线的消息
+        clients.writeAndFlush(Unpooled.copiedBuffer(ctx.channel().remoteAddress() + "用户上线", CharsetUtil.UTF_8));
+
         // 将新的通道加入到clients
         clients.add(ctx.channel());
+
+        log.info(ctx.channel().remoteAddress() + "用户上线");
+    }
+
+    /**
+     * 客户端断开连接
+     * 触发这个方法的时候 ChannelGroup clients 会自动断开当前channel
+     * 而且当心跳监测事件发生进行ctx.disconnect()，产生异常关闭连接都会触发该方法。
+     * @param ctx
+     * @author lxq
+     * @date 2021/4/10 16:40
+     */
+    @Override
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        log.info(ctx.channel().remoteAddress() + "用户离线");
+        ctx.close();
     }
 
     /**
@@ -104,6 +93,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     /**
+     * 心跳监测
      * 空闲事件
      *
      * @param ctx
@@ -128,20 +118,5 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
             }
         }
     }
-
-    /**
-     * 客户端断开连接
-     *
-     * @param ctx
-     * @author lxq
-     * @date 2021/4/10 16:40
-     */
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        log.info("关闭通道");
-        ctx.close();
-    }
-
-
 }
 
