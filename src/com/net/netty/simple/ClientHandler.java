@@ -23,7 +23,11 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
         log.info("client:{}, is OK", ctx.channel().localAddress().toString());
-        ctx.writeAndFlush(Unpooled.copiedBuffer("hello 中国", CharsetUtil.UTF_8));
+        for (int i = 0; i < 10; i++){
+            ctx.write(Unpooled.copiedBuffer("hello 中国", CharsetUtil.UTF_8));
+        }
+        // 上面是写入TCP缓冲区，只有刷新才能发送数据包出去
+        ctx.flush();
     }
 
     /**
@@ -39,6 +43,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         ByteBuf data = (ByteBuf) msg;
         System.out.println("接收到服务端信息：" + data.toString(CharsetUtil.UTF_8));
     }
+
 
     /**
      * 连接异常

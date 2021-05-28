@@ -1,6 +1,7 @@
 package com.net.nio;
 
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author lxq
@@ -8,16 +9,24 @@ import java.util.*;
  */
 public class Test {
 
-    public static void main(String[] args) {
+    static CountDownLatch countDownLatch = null;
 
-        while (true){
-            int v = new Random().nextInt(11);
-            System.out.println(v);
-            if(v == 10){
-                break;
-            }
-
-        }
+    static String B() {
+        System.out.println("B()...");
+        return "B";
     }
+
+    public static void main(final String... args) {
+        countDownLatch = new CountDownLatch(1);
+        System.out.println(1111111111);
+        try {
+            countDownLatch.countDown();
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(22222222);
+    }
+
 }
 

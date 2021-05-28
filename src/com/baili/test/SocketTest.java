@@ -29,7 +29,7 @@ public class SocketTest {
 //		System.arraycopy(cameraId, 0, msg, 19, cameraId.length);
 
 
-		Socket socket = new Socket("127.0.0.1",6666);
+		Socket socket = new Socket("127.0.0.1",9003);
         InputStream inputStream = socket.getInputStream();
 		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
         OutputStreamWriter outputStreamWriter = new OutputStreamWriter(socket.getOutputStream());

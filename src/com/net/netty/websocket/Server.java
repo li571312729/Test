@@ -58,7 +58,7 @@ public class Server {
                             // 通过pipeline获取对应的channel，这里pipeline和channel是互相关联的
                             ChannelPipeline p = ch.pipeline();
                             // 这个是心跳监测事件读写器，超过指定的时间后触发的处理器
-                            p.addLast(new IdleStateHandler(60, 0, 0));
+                            p.addLast(new IdleStateHandler(0, 0, 0));
 
                             // websocket和http协议数据格式类似，添加http编解码器
                             p.addLast(new HttpServerCodec());
