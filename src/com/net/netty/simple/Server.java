@@ -41,7 +41,7 @@ public class Server {
                     .group(bossGroup,workerGroup)
                     // 指定使用一个NIO传输Channel类型
                     .channel(NioServerSocketChannel.class)
-                    // 增加日志handler ，设置日志级别
+                    // 增加日志handler ，设置日志级别，这个要配置相应的log配置和依赖导入
                     .handler(new LoggingHandler(LogLevel.DEBUG))
                     // 线程队列中等待连接的个数
                     .option(ChannelOption.SO_BACKLOG, 128)

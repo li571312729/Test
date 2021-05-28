@@ -2,6 +2,7 @@ package com.net.netty.group;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.group.ChannelGroup;
@@ -20,6 +21,8 @@ import java.text.SimpleDateFormat;
  */
 @Slf4j
 public class GroupServerHandler extends ChannelInboundHandlerAdapter {
+
+
 
     // 用来保存所有的客户端连接
     public static ChannelGroup clients = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
