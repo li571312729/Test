@@ -50,6 +50,7 @@ public class HttpFileServer {
                             pipeline.addLast(new HttpResponseEncoder());
                             // 支持异步发送大的码流，例如大的文件传输，但不占用过多的内存，防止发生java内存溢出错误
                             pipeline.addLast(new ChunkedWriteHandler());
+                            pipeline.addLast(new HttpFileServerValidHandler());
                             pipeline.addLast(new HttpFileServerHandler());
                         }
                     });

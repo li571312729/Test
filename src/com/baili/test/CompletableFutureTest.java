@@ -3,7 +3,9 @@ package com.baili.test;
 import lombok.SneakyThrows;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -14,25 +16,21 @@ import java.util.stream.Stream;
  */
 public class CompletableFutureTest {
 
-    public static String name;
-
-    public static void main(String[] args) {
-        int a = 0, b = 1;
-
-        name.toString();
-        System.out.println(111111);
-//        CompletableFutureTest test = new CompletableFutureTest();
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        CompletableFutureTest test = new CompletableFutureTest();
         // runAsync() 异步无参返回
         // test.runAsync();
 
         // supplyAsync() 异步有参返回
-        // test.supplyAsync();
+         // test.supplyAsync();
 
-        // allOf() 多个异步处理(针对有参返回)
-        // test.allOf();
+         // allOf() 多个异步处理(针对有参返回)
+         //test.allOf();
 
         // anyOf() 多个异步随机处理(针对有参返回)
-        // test.anyOf();
+        //test.anyOf();
+
+        test.method();
     }
 
     /**
@@ -55,7 +53,6 @@ public class CompletableFutureTest {
         CompletableFuture<Object> any = CompletableFuture.anyOf(a, b, c);
         String result = (String) any.get();
         System.out.println(result);
-
     }
 
     /**
@@ -104,6 +101,49 @@ public class CompletableFutureTest {
         });
         // get同步方法等待结果
         System.out.println(c1.get());
+    }
+
+    private void method() throws ExecutionException, InterruptedException {
+        StringBuilder builder = new StringBuilder();
+        CompletableFuture<String> f1 = CompletableFuture.supplyAsync(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(6);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return "f1";
+        });
+
+        f1.whenCompleteAsync(new BiConsumer<String, Throwable>() {
+            @Override
+            public void accept(String s, Throwable throwable) {
+                builder.append(s);
+            }
+        });
+
+        CompletableFuture<String> f2 = CompletableFuture.supplyAsync(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(2);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return "f2";
+        });
+
+        f2.whenCompleteAsync(new BiConsumer<String, Throwable>() {
+            @Override
+            public void accept(String s, Throwable throwable) {
+                builder.append(s);
+            }
+        });
+
+        CompletableFuture<Void> all = CompletableFuture.allOf(f1, f2);
+
+        all.get();
+
+        System.out.println(builder.toString());
     }
 
 }

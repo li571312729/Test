@@ -1,40 +1,34 @@
 package com.net.netty;
 
+import lombok.SneakyThrows;
+
 import java.io.File;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author lxq
  * @date 2021年04月27日 14:24
  */
 public class Test {
-    public static void main(String[] args) throws Exception {
-        String a = "/a";
-        System.out.println(a.substring(0, a.lastIndexOf('/')));
 
+    public static void main(String args[]){
+        int i = maxSubArray(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4});
+        System.out.println(i);
     }
-}
+    /**
+     * 求连续子序列最大值
+     * @param nums
+     */
+    public static int maxSubArray(int[] nums){
+        //负无穷
+        float current_sum = Float.NEGATIVE_INFINITY;
+        float best_sum = Float.NEGATIVE_INFINITY;
 
-class address {
-    private String city;
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-}
-
-class User {
-    address address;
-
-    public com.net.netty.address getAddress() {
-        return address;
-    }
-
-    public void setAddress(com.net.netty.address address) {
-        this.address = address;
+        for (int num : nums) {
+            current_sum = Math.max(num, num + current_sum);
+            best_sum = Math.max(current_sum, best_sum);
+        }
+        return (int) best_sum;
     }
 }
