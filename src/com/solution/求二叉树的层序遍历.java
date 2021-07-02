@@ -19,8 +19,8 @@ public class 求二叉树的层序遍历 {
         root.right = root3;
         root3.left = root4;
         root3.right = root5;
-        String a = new String();
-        print(root);
+        ArrayList<ArrayList<Integer>> arrayLists = levelOrder1(root);
+        System.out.println(111111);
     }
 
     public static ArrayList<ArrayList<Integer>> levelOrder1(TreeNode root) {
@@ -29,18 +29,24 @@ public class 求二叉树的层序遍历 {
             return res;
         }
 
-        int i = 0;
-        ArrayList<Integer> floor = new ArrayList<>(10);
-        res.add(0, floor);
-
-        while (root.left != null || root.right != null){
-            i ++;
+        LinkedList<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()){
             ArrayList<Integer> temp = new ArrayList<>(10);
+            int size = queue.size();
+            while (size-- > 0){
+                TreeNode poll = queue.poll();
+                temp.add(poll.val);
+                if(poll.left != null){
+                    queue.offer(poll.left);
+                }
 
+                if(poll.right != null){
+                    queue.offer(poll.right);
+                }
+            }
+            res.add(temp);
         }
-
-
-
         return res;
     }
 
