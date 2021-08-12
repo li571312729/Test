@@ -10,25 +10,17 @@ public class NotSafeCount {
 
     private static long value = 0;
 
-    public static synchronized long getValue() {
-        return value;
-    }
-
-    public static synchronized void inic(){
-        ++value;
-    }
-
     public static void main(String[] args) throws InterruptedException {
 
         Thread threadA = new Thread(() -> {
-            for (int i = 0; i < 200; i++) {
-                inic();
+            for (int i = 0; i < 50; i++) {
+                value++;
             }
         }, "threadA");
 
         Thread threadB = new Thread(() -> {
-            for (int i = 0; i < 200; i++) {
-                inic();
+            for (int i = 0; i < 50; i++) {
+                value++;
             }
         }, "threadB");
 
@@ -36,7 +28,7 @@ public class NotSafeCount {
         threadB.start();
         threadA.join();
         threadB.join();
-        System.out.println(Thread.currentThread().getName() + " : " + getValue());
+        System.out.println(Thread.currentThread().getName() + " : " + value);
     }
 
 

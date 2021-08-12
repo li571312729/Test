@@ -2,6 +2,7 @@ package com.net.nio.zeroCopy;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.nio.channels.FileChannel;
 import java.nio.channels.SocketChannel;
@@ -12,7 +13,6 @@ import java.nio.channels.SocketChannel;
 public class Client {
 
     public static void main(String[] args) {
-
         try(
                 SocketChannel socketChannel = SocketChannel.open();
                 FileInputStream fileInputStream = new FileInputStream("E:\\Speed.log");
