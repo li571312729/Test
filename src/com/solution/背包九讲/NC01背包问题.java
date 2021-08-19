@@ -1,4 +1,4 @@
-package com.solution;
+package com.solution.背包九讲;
 
 /**
  * @author lxq
