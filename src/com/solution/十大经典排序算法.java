@@ -352,7 +352,7 @@ public class 十大经典排序算法 {
      * @param current
      * @param father
      */
-    private static void swap(int[] arr, int current, int father) {
+    static void swap(int[] arr, int current, int father) {
         arr[current] ^= arr[father];
         arr[father] ^= arr[current];
         arr[current] ^= arr[father];
