@@ -6,6 +6,7 @@ public class DaemonThread {
 
     public static void main(String[] args) throws Exception{
 
+
         Thread thread = new Thread(() -> {
             // 如果被中断，则重置中断标识并退出
             while(!Thread.interrupted()){
