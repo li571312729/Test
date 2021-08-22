@@ -4,7 +4,7 @@ package com.solution.背包九讲;
  * @author lxq
  * @date 2021年08月19日 15:08
  */
-public class 完全背包问题 {
+public class NC02完全背包问题 {
 
     public static void main(String[] args) {
         System.out.println(optimizationPackages(11, 4, new int[][]{{6, 4}, {7, 8}, {4, 3}, {2, 3}}));
