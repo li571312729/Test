@@ -10,25 +10,18 @@ import java.util.concurrent.*;
  */
 public class Test {
     public static void main(String[] args) {
-        Thread thread = new Thread(() -> {
-            try {
-                TimeUnit.SECONDS.sleep(3);
-                System.out.println(1111111);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-
-        System.out.println(thread.isDaemon());
-        System.out.println(22222);
+        System.out.println(a1.a);
     }
 
-    public static boolean contains(int[] a, int num){
-        for (int i : a){
-            if (i == num) {
-                return true;
-            }
-        }
-        return false;
+
+}
+
+class a1{
+
+    public static final int a = 1;
+
+    static {
+        System.out.println("a1");
     }
+
 }
