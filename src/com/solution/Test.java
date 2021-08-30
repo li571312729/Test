@@ -15,9 +15,15 @@ public class Test {
         String s = b.readLine();
         System.out.println(s);
         new Thread(() -> {
-            while (true){}
+            while (true) {
+            }
         }, "Abcde").start();
+    }
 
+    private int m;
+
+    public int inc(){
+        return m + 1;
     }
 
 }
