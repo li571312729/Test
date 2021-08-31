@@ -1,8 +1,7 @@
 package com.solution;
 
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * @author lxq
@@ -10,20 +9,21 @@ import java.io.InputStreamReader;
  */
 public class Test {
 
+    static class parent{
+        public static int a = 1;
+        static {
+            a = 2;
+        }
+    }
+
+    static class child extends parent{
+        public static int B = a;
+    }
+
     public static void main(String[] args) throws IOException {
-        BufferedReader b = new BufferedReader(new InputStreamReader(System.in));
-        String s = b.readLine();
-        System.out.println(s);
-        new Thread(() -> {
-            while (true) {
-            }
-        }, "Abcde").start();
+        System.out.println(child.B);
     }
 
-    private int m;
 
-    public int inc(){
-        return m + 1;
-    }
 
 }
