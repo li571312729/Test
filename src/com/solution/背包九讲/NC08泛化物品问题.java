@@ -49,21 +49,4 @@ public class NC08泛化物品问题 {
             return dp[v];
     }
 
-    /**
-     * 获取物品在容量j下的最费用（只获取一次）
-     * @param ints
-     * @return
-     */
-    private static int getMaxIndexAndValue(int[] ints, int j) {
-        int maxIndex = 0;
-        for (int i = 1; i < ints.length && i <= j; i++) {
-            // 相同价值的情况下取重量小的
-            if(ints[i] > ints[maxIndex]){
-                maxIndex = i;
-            }
-        }
-        return maxIndex;
-    }
-
-
 }

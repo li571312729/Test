@@ -1,7 +1,10 @@
 package com.net.nio;
 
+import org.apache.poi.ss.formula.functions.T;
+
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author lxq
@@ -9,23 +12,15 @@ import java.util.concurrent.CountDownLatch;
  */
 public class Test {
 
-    static CountDownLatch countDownLatch = null;
-
-    static String B() {
-        System.out.println("B()...");
-        return "B";
+    public void test(){
+        while (true){
+            System.out.println(11111111);
+        }
     }
 
-    public static void main(final String... args) {
-        countDownLatch = new CountDownLatch(1);
-        System.out.println(1111111111);
-        try {
-            countDownLatch.countDown();
-            countDownLatch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println(22222222);
+    public static void main(final String... args) throws InterruptedException {
+        Test t = new Test();
+        t.test();
     }
 
 }
