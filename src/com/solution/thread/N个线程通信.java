@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class N个线程通信 {
 
-    private static final int number  = 3;
+    private static final int number  = 4;
 
     /**
-     * 两个线程交替打印数字到100
+     * N个线程交替打印数字到100
      * @author lxq
      * @date 2021/10/13 13:36
      * @param args
