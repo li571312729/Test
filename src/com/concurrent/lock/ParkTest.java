@@ -14,7 +14,11 @@ public class ParkTest {
 
     public static void main(String[] args) {
         ParkTest p = new ParkTest();
+        LockSupport.unpark(Thread.currentThread());
         p.test();
+        System.out.println(1111111);
+        p.test();
+        System.out.println(1111111);
     }
 
 }

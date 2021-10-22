@@ -9,19 +9,35 @@ import java.util.concurrent.*;
  * @date 2021年08月17日 14:15
  */
 public class Test {
+
+    static class Human{
+        int a = 2;
+
+        public Human() {
+            this.a = 4;
+            show();
+        }
+        public void show(){
+            System.out.println(a);
+        }
+    }
+    static class Man extends Human{
+        int a = 5;
+
+        public Man() {
+            this.a = 10;
+            show();
+        }
+        @Override
+        public void show(){
+            System.out.println(a);
+        }
+    }
+
     public static void main(String[] args) {
-        System.out.println(a1.a);
+        Human man = new Man();
+        System.out.println(man.a);
     }
 
-
-}
-
-class a1{
-
-    public static final int a = 1;
-
-    static {
-        System.out.println("a1");
-    }
 
 }
