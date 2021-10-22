@@ -11,14 +11,14 @@ public class 两个链表生成相加链表 {
 
     public static void main(String[] args) {
         ListNode a = new ListNode(9);
-        ListNode b = new ListNode(3);
-        ListNode c = new ListNode(7);
+        ListNode b = new ListNode(9);
+        ListNode c = new ListNode(9);
         a.next = b;
         b.next = c;
-        ListNode d = new ListNode(6);
-        ListNode e = new ListNode(5);
+        ListNode d = new ListNode(9);
+        ListNode e = new ListNode(9);
         d.next = e;
-        ListNode listNode = addInList1(a, d);
+        ListNode listNode = addTwoNumbers(a, d);
         System.out.println(11111111);
     }
 
@@ -75,48 +75,61 @@ public class 两个链表生成相加链表 {
     /**
      * 假设链表中每一个节点的值都在 0 - 9 之间，那么链表整体就可以代表一个整数。
      * 给定两个这种链表，请生成代表两个整数相加值的结果链表。
-     * 例如：
-     *      链表 1 为 9->3->7，链表 2 为 6->3，
-     *      最后生成新的结果链表为 1->0->0->0。
+         * 输入：l1 = [2,4,3], l2 = [5,6,4]
+         * 输出：[7,0,8]
+         * 解释：342 + 465 = 807.
      * @author lxq
      * @date 2021/7/19 15:24
-     * @param head1
-     * @param head2
+     * @param l1
+     * @param l2
      * @return com.solution.ListNode
      */
-    public static ListNode addInList (ListNode head1, ListNode head2) {
-        ListNode tempNode1 = head1;
-        ListNode tempNode2 = head2;
-        StringBuffer s1 = new StringBuffer("");
-        StringBuffer s2 = new StringBuffer("");
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode data = null;
+        ListNode before = null;
+        int current = 0, carry = 0;
 
-        while (tempNode1 != null || tempNode2 != null){
-            if (tempNode1 !=null ) {
-                if(!("".equals(s1) && tempNode1.val == 0)){
-                    s1.append(tempNode1.val);
-                }
-                tempNode1 = tempNode1.next;
+        while (l1 != null && l2 != null){
+            current = (l1.val + l2.val + carry) % 10;
+            carry = (l1.val + l2.val + carry) / 10;
+            if (data == null) {
+                data = new ListNode(current);
+                before = data;
+            }else {
+                before.next = new ListNode(current);
+                before = before.next;
             }
-
-            if (tempNode2 != null){
-                if(!("".equals(s2) && tempNode2.val == 0)){
-                    s2.append(tempNode2.val);
-                }
-                tempNode2 = tempNode2.next;
-            }
+            l1 = l1.next;
+            l2 = l2.next;
         }
-        BigInteger result = new BigInteger("".equals(s1.toString()) ? "0" : s1.toString()).add(new BigInteger("".equals(s2.toString()) ? "0" : s2.toString()));
-        int i;
-        System.out.println(result);
 
-        ListNode header = null;
-        do {
-            i = result.mod(new BigInteger("10")).intValue();
-            result = result.divide(new BigInteger("10"));
-            ListNode current = new ListNode(i);
-            current.next = header;
-            header = current;
-        }while (result.compareTo(new BigInteger("0")) > 0);
-        return header;
+        while (l1 != null){
+            if(carry > 0){
+                current = (l1.val + carry) % 10;
+                carry = (l1.val + carry) / 10;
+                before.next = new ListNode(current);
+            }else {
+                before.next = new ListNode(l1.val);
+            }
+            l1 = l1.next;
+            before = before.next;
+        }
+
+        while (l2 != null){
+            if(carry > 0){
+                current = (l2.val + carry) % 10;
+                carry = (l2.val + carry) / 10;
+                before.next = new ListNode(current);
+            }else {
+                before.next = new ListNode(l2.val);
+            }
+            l2 = l2.next;
+            before = before.next;
+        }
+
+        if(carry > 0){
+            before.next = new ListNode(carry);
+        }
+        return data;
     }
 }

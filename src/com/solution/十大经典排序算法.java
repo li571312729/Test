@@ -19,7 +19,7 @@ public class 十大经典排序算法 {
     
     public static void main(String[] args) {
         double[] array = new double[9999];
-        int[] ar = new int[]{1,3,1,43,3,5,34,23,21,16,41,29,37,30,11};
+        double[] ar = new double[]{1,3,1,43,3,5,34,23,21,16,41,29,37,30,11};
         // 填充数据
         //fillArray(array);
 
@@ -27,7 +27,7 @@ public class 十大经典排序算法 {
         //bubblingSort(array);
 
         // 快速排序
-        //quickSort(array);
+        quickSort(ar);
 
         // 选择排序
         //selectionSort(ar);
@@ -52,7 +52,7 @@ public class 十大经典排序算法 {
         // bucketSort(ar, 10);
 
         // 基数排序
-        radixSort(ar);
+        //radixSort(ar);
     }
 
     /**
@@ -252,7 +252,7 @@ public class 十大经典排序算法 {
                 high--;
             }
             list[low] = list[high]; // 比中轴小的记录移到低端
-            while (low < high && list[low] < tmp) {
+            while (low < high && list[low] <= tmp) {
                 low++;
             }
             list[high] = list[low]; // 比中轴大的记录移到高端

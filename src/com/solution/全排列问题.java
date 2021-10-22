@@ -54,8 +54,6 @@ public class 全排列问题 {
             // 回溯的精华：撤销当前选择
             tempList.remove(tempList.size() - 1);
         }
-        
-
     }
 
 
