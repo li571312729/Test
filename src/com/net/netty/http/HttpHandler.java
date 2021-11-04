@@ -37,6 +37,7 @@ public class HttpHandler extends SimpleChannelInboundHandler<HttpObject> {
         // 判断消息是不是HttpRequest请求
         if (httpObject instanceof HttpRequest) {
             log.info("客户端地址：{}", channelHandlerContext.channel().remoteAddress());
+
             // 获取到httObject中包含的请求资源（网页图标）, 演示对特定资源进行过滤
             URI uri = new URI(((HttpRequest) httpObject).uri());
             if("/favicon.ico".equals(uri.getPath())){
