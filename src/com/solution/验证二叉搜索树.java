@@ -9,6 +9,7 @@ import java.util.Objects;
 public class 验证二叉搜索树 {
 
     public static void main(String[] args) {
+
         TreeNode root = new TreeNode(5);
         TreeNode l = new TreeNode(4);
         TreeNode r = new TreeNode(6);
@@ -19,7 +20,9 @@ public class 验证二叉搜索树 {
         r.left = r1;
         r.right = r2;
         System.out.println(isValidBST(root));
+
     }
+
 
     /**
      * 给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。
