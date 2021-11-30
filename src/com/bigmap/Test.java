@@ -14,7 +14,7 @@ public class Test {
             return;
         }
 
-        MyBitMap map = new MyBitMap(500000000);
+        MyIntBitMap map = new MyIntBitMap(500000000);
 
         try(
             BufferedReader reader = new BufferedReader(new FileReader(f));
@@ -22,10 +22,10 @@ public class Test {
             String data = null;
             while ((data = reader.readLine()) != null){
                 System.out.println("当前读取到的是：" + data);
-                int number = Integer.parseInt(data);
+                long number = Long.parseLong(data);
                 if(map.contains(number)){
-                    System.out.println(data + "  已经存在");
-                    map.showByte(map.bits[number >> 3]);
+                    System.out.println(number + "  已经存在");
+                    map.showBit(number);
                     continue;
                 }
                 map.put(number);
