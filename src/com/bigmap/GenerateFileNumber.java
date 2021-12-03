@@ -1,15 +1,14 @@
 package com.bigmap;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.LongAdder;
 
 /**
  * 向文件中写入40亿数字
@@ -20,48 +19,69 @@ import java.util.concurrent.atomic.AtomicLong;
 @Slf4j
 public class GenerateFileNumber {
 
+    static ThreadFactory basicThreadFactory;
+
     static ThreadPoolExecutor threadPoolExecutor = null;
 
     static {
+        basicThreadFactory = new ThreadFactoryBuilder().setNameFormat("GenerateNumber-").build();
         threadPoolExecutor = new ThreadPoolExecutor(
                 12, 101,
                 15, TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(1000000),
+               // basicThreadFactory,
                 new ThreadPoolExecutor.CallerRunsPolicy());
     }
 
     public static void main(String[] args) {
+        int count = 100;
+        for (int i = 1; i <= count; i++) {
+            threadPoolExecutor.execute(new NumberThreadTest((long) i));
+        }
+        threadPoolExecutor.shutdown();
+    }
 
-        AtomicLong count = new AtomicLong();
+}
 
+@Slf4j
+class NumberThreadTest extends Thread{
+
+    private Long up;
+    private Long down;
+    private static LongAdder count = new LongAdder();
+    private static FileWriter out;
+
+    static {
         File f = new File("D:\\Users\\xiaoqiangli\\work\\qq.txt");
         try {
             if (!f.exists() && !f.createNewFile()) {
                 log.warn("file created fail。");
-                return;
+                System.exit(-1);
             }
+            out = new FileWriter(f);
         } catch (IOException e) {
             log.error("file created fail：{}", e);
             System.exit(-1);
         }
+    }
 
-        try (
-                FileWriter out = new FileWriter(f);
-        ) {
-            while (count.incrementAndGet() < Long.parseLong("4112314521")) {
-                threadPoolExecutor.execute(() -> {
-                    try {
-                        out.append(count.get() + "\n");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-                log.info("已生成元素{}个", count.get());
+    public NumberThreadTest(Long number) {
+        this.up = number * 4000000;
+        this.down = (number - 1) * 4000000 + 1;
+    }
+
+    @Override
+    public void run() {
+        while (down <= up) {
+            try {
+                out.append(down + "\n");
+                log.info(Thread.currentThread().getName() + "   生成元素：{}", down++);
+                count.increment();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        log.info("元素生成结束，总计{}个", count.get());
+        log.info(Thread.currentThread().getName() + "目前为止共计生成元素{}个", count.sum());
     }
 
 }

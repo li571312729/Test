@@ -8,6 +8,7 @@ public class MyIntBitMap {
 
     private int[] arr;
 
+
     /**
      * 创建实际数组
      *
@@ -15,6 +16,26 @@ public class MyIntBitMap {
      */
     public MyIntBitMap(long length) {
         this.arr = new int[getIndex(length) + 1];
+    }
+
+    /**
+     * 返回实际存储的元素数量，而不是map的大小
+     * @return
+     */
+    public long size(){
+        long result = 0;
+        for (int i : arr) {
+            result += Integer.bitCount(i);
+        }
+        return result;
+    }
+
+    /**
+     * 返回map的大小，而不是实际存储的元素数量，
+     * @return
+     */
+    public int length(){
+        return arr.length;
     }
 
     /**
@@ -76,12 +97,14 @@ public class MyIntBitMap {
      * @param num
      */
     public void showBit(long num) {
-        for (int i = 31; i >= 0; i--) {
-            System.out.print((byte) (((1 << i) & arr[getIndex(num)]) >> i) + " ");
-            if(i % 4 == 0){
-                System.out.print("  ");
+        StringBuffer s = new StringBuffer(Integer.toBinaryString(arr[getIndex(num)]));
+        int count = 32 - s.length();
+        if(count > 0){
+            s.reverse();
+            for (int i = 0; i < count; i++) {
+                s.append(0);
             }
         }
-        System.out.println();
+        System.out.println(s.reverse());
     }
 }

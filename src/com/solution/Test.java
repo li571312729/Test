@@ -12,18 +12,12 @@ import java.util.Properties;
 public class Test {
 
     public static void main(String[] args) throws IOException {
-        Properties prop1 = new Properties();
-        prop1.load(Test.class.getClassLoader().getResourceAsStream("a.properties"));
-        System.out.println(prop1.getProperty("a"));
+        //Properties prop1 = new Properties();
+        //prop1.load(Test.class.getClassLoader().getResourceAsStream("a.properties"));
+        //System.out.println(prop1.getProperty("a"));
 
-        terst(new HashMap<String, String>(){
-            {
-                put("hello", "test");
-                put("hello2", "test2");
-                put("hello3", "test3");
-            }
-        });
-
+        int intValue = Math.round(2.552f);
+        System.out.println(intValue);
     }
 
     public static void terst(HashMap<String, String> map){
