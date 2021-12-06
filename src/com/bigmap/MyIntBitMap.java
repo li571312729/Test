@@ -72,7 +72,7 @@ public class MyIntBitMap {
     }
 
     /**
-     * num % 8得到在int[index]的位置
+     * num % 32得到在int[index]的位置
      *
      * @param num
      * @return

@@ -54,6 +54,14 @@ public class 打家劫舍 {
      * @return
      */
     private static int getMoneyCircle(int[] ints) {
+        if(ints == null || ints.length == 0){
+            return 0;
+        }
+
+        if(ints.length <= 1){
+            return ints[0];
+        }
+
         int length = ints.length;
 
         // 既然头尾只能选择一间，那我们可以将环拆成两部分，
