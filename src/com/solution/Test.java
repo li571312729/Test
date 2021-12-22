@@ -1,23 +1,27 @@
 package com.solution;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Properties;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author xiaoqiangli
  * @Date 2021-11-25
  */
+@Slf4j
 public class Test {
 
-    public static void main(String[] args) throws IOException {
-        //Properties prop1 = new Properties();
-        //prop1.load(Test.class.getClassLoader().getResourceAsStream("a.properties"));
-        //System.out.println(prop1.getProperty("a"));
+    private List<String> a = new ArrayList<>();
 
-        int intValue = Math.round(2.552f);
-        System.out.println(intValue);
+    public static void main(String[] args) throws IOException {
+        BigDecimal bigDecimal = new BigDecimal(85);
+        BigDecimal multiply = bigDecimal.divide(new BigDecimal(80), 10, RoundingMode.HALF_UP);
+
+        System.out.println(String.format("result:%s", multiply));
     }
 
     public static void terst(HashMap<String, String> map){
