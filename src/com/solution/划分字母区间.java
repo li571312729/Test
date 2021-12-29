@@ -1,6 +1,4 @@
-package com;
-
-import org.checkerframework.checker.units.qual.min;
+package com.solution;
 
 import java.util.ArrayList;
 import java.util.HashMap;
