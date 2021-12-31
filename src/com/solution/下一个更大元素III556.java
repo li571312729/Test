@@ -2,6 +2,8 @@ package com.solution;
 
 import okio.Utf8;
 
+import java.util.Random;
+
 /**
  * @author xiaoqiangli
  * @Date 2021-12-30
