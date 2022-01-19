@@ -1,4 +1,4 @@
-package com.solution;
+package com.solution.动态规划练习;
 
 import java.util.Arrays;
 

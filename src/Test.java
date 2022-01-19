@@ -1,7 +1,10 @@
 import java.io.PrintStream;
 import java.lang.invoke.MethodType;
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -14,12 +17,15 @@ public class Test {
 
     private int age;
 
-    public static void main(String[] args) {
-        List<Integer> list = new ArrayList<>();
-        list.add(1);
-        list = list.stream().filter(o -> o > 2).collect(Collectors.toList());
-        Integer first = list.stream().distinct().findFirst().orElse(null);
-        System.out.println(first);
+    public static void main(String[] args) throws ParseException {
+        System.out.println("{'[depart]':'#{depart}','[arrive]':'#{arrive}','[orderID]':'#{orderID}'}".replace("#{depart}", "仙女座")
+                .replace("#{arrive}", "太阳系")
+                .replace("#{orderID}", "16895899108"));
+    }
+
+    private static void testss(Test tet) {
+        tet = new Test(14);
+        tet.setAge(11);
     }
 
     public Test(int age) {
@@ -32,5 +38,12 @@ public class Test {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Test{" +
+                "age=" + age +
+                '}';
     }
 }

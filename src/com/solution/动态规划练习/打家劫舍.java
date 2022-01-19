@@ -1,4 +1,4 @@
-package com.solution;
+package com.solution.动态规划练习;
 
 public class 打家劫舍 {
 
