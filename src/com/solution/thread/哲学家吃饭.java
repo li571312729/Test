@@ -2,7 +2,6 @@ package com.solution.thread;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Random;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
