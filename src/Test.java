@@ -18,9 +18,6 @@ public class Test {
     private int age;
 
     public static void main(String[] args) throws ParseException {
-        System.out.println("{'[depart]':'#{depart}','[arrive]':'#{arrive}','[orderID]':'#{orderID}'}".replace("#{depart}", "仙女座")
-                .replace("#{arrive}", "太阳系")
-                .replace("#{orderID}", "16895899108"));
     }
 
     private static void testss(Test tet) {

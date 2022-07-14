@@ -107,4 +107,20 @@ public class MyIntBitMap {
         }
         System.out.println(s.reverse());
     }
+
+    public static void main(String[] args) {
+        //Long a = 27L;
+        //System.out.println(Long.toBinaryString(a));
+        //// 清除
+        //a &= ~(1 << 3);
+        //
+        //
+        //System.out.println(Long.toBinaryString(a));
+        //// 设置
+        //a |= 1 << 2;
+        //System.out.println(Long.toBinaryString(a));
+
+
+        System.out.println(3 & (1 << 0));
+    }
 }
