@@ -16,34 +16,16 @@ public class Test {
     private String name2;
 
     public static void main(String[] args) throws Exception {
-        //Class<Test> aClass = Test.class;
-        //Method print = aClass.getDeclaredMethod("print", null);
-        //Method[] declaredMethods = aClass.getDeclaredMethods();
-        //
-        //Roles[] annotationsByType = print.getAnnotationsByType(Roles.class);
-        //Role[] role = print.getAnnotationsByType(Role.class);
-        //Arrays.asList(annotationsByType).forEach(o -> Arrays.asList(o.value()).forEach(t -> System.out.println(t.roleName())));
-        //System.out.println("--------------------------");
-        //Arrays.asList(role).forEach(o -> System.out.println(o.roleName()));
+        Class<Test> aClass = Test.class;
+        Method print = aClass.getDeclaredMethod("print", null);
+        Method[] declaredMethods = aClass.getDeclaredMethods();
 
-        System.out.println(a());
+        Roles[] annotationsByType = print.getAnnotationsByType(Roles.class);
+        Role[] role = print.getAnnotationsByType(Role.class);
+        Arrays.asList(annotationsByType).forEach(o -> Arrays.asList(o.value()).forEach(t -> System.out.println(t.roleName())));
+        System.out.println("--------------------------");
+        Arrays.asList(role).forEach(o -> System.out.println(o.roleName()));
     }
-
-    public static boolean a(){
-        for (int i = 0; i < 100; i++) {
-            System.out.println(i);
-        }
-        return true;
-    }
-
-
-
-
-
-
-
-
-
 
     //@SuppressWarnings("unchecked")
     @Role(roleName = "roel1")

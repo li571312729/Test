@@ -94,6 +94,13 @@
           <version>27.0.1-jre</version>
       </dependency>
 
+     <!-- ip2region xdb java 查询客户端实现 ip查询所属地的工具-->
+      <dependency>
+          <groupId>org.lionsoul</groupId>
+          <artifactId>ip2region</artifactId>
+          <version>2.6.4</version>
+      </dependency>
+
   </dependencies>
     
   <build>
