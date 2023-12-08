@@ -101,6 +101,17 @@
           <version>2.6.4</version>
       </dependency>
 
+      <dependency>
+          <groupId>org.clojars.automata</groupId>
+          <artifactId>jl</artifactId>
+          <version>1.0.0</version>
+      </dependency>
+
+      <dependency>
+          <groupId>com.hynnet</groupId>
+          <artifactId>jacob</artifactId>
+          <version>1.18</version>
+      </dependency>
   </dependencies>
     
   <build>

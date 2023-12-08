@@ -4,12 +4,54 @@ package com.algorithm;
 class ListNode{
     int val;
     ListNode next;
-    ListNode(int x) { this.val = x; }
+    public ListNode prev;
 
     @Override
     public String toString() {
         return "ListNode{" +
                 "val=" + val + "}";
+    }
+
+    public int getVal() {
+        return val;
+    }
+
+    public void setVal(int val) {
+        this.val = val;
+    }
+
+    public ListNode getNext() {
+        return next;
+    }
+
+    public void setNext(ListNode next) {
+        this.next = next;
+    }
+
+    public ListNode() {
+    }
+
+    public ListNode(int val) {
+        this.val = val;
+    }
+
+    public ListNode buildVal(int val) {
+        this.val = val;
+        return this;
+    }
+
+    public ListNode buildNext(ListNode next) {
+        this.next = next;
+        return this;
+    }
+
+    public ListNode buildPrev(ListNode prev) {
+        this.prev = prev;
+        return this;
+    }
+
+    public static ListNode build(){
+        return new ListNode(1);
     }
 }
 
