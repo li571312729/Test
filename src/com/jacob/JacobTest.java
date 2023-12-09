@@ -7,7 +7,7 @@ import com.jacob.com.Variant;
 public class JacobTest {
 
     public static void main(String[] args) throws Exception {
-        text("F:/a.mp4", "利刃在手,制裁八方", 100, 0);
+        text("F:/a.mp4", "利刃在手,制裁八方! 你们能杀死我吗啊啊啊啊啊！！！！！", 100, 0);
     }
 
 
