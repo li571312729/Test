@@ -3,6 +3,22 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="dddExample" />
+        <module name="baili" />
+      </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="angorithm" target="1.8" />
+      <module name="baili" target="1.8" />
+      <module name="dddExample" target="1.8" />
+      <module name="dddtest" target="1.8" />
+      <module name="kuanglan" target="1.8" />
+      <module name="NewTest" target="1.8" />
+      <module name="untitled" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

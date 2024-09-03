@@ -33,4 +33,7 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+### idea package
+out/
+
 ### VS Code ###
